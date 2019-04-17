@@ -6,20 +6,20 @@ using UnityEngine;
 namespace PolymerModel.Data {
 
     /// <summary>蛋白质中的残基实例</summary>
-    public class AminoacidInProtein {
-
+    public class AminoacidInProtein
+    {
         public Chain Chain { get; internal set; }
 
         /// <summary>所属链的ID(ATOM[22])</summary>
         public string ChainId { get; private set; }
 
-        /// <summary>该残基在在该链中的顺序号(ATOM[23-26])</summary>
+        /// <summary>该残基在该链中的顺序号(ATOM[23-26])</summary>
         public int ResidueSeq { get; private set; }
         
         /// <summary>可替换标识符(ATOM[17])</summary>
         public char AltLoc { get; private set; }
 
-        /// <summary>残基名字(ATOM[18-20])</summary>
+        /// <summary>残基名字(简写大写字母，ATOM[18-20])</summary>
         public string ResName { get; private set; }
 
         /// <summary>残基所属氨基酸</summary>
@@ -32,7 +32,8 @@ namespace PolymerModel.Data {
         /// <summary>氨基酸内部各原子在蛋白质中的序号</summary>
         public ReadOnlyDictionary<AtomInAminoacid, int> AtomInAminoacidSerial { get; private set; }
 
-        public AminoacidInProtein(char altLoc, string resName, string chainId, int residueSeq, IDictionary<AtomInAminoacid, Vector3> atomInAminoacidPos, IDictionary<AtomInAminoacid, int> atomInAminoacidSerial) {
+        public AminoacidInProtein(char altLoc, string resName, string chainId, int residueSeq, IDictionary<AtomInAminoacid, Vector3> atomInAminoacidPos, IDictionary<AtomInAminoacid, int> atomInAminoacidSerial)
+        {
             this.ChainId = chainId;
             this.ResidueSeq = residueSeq;
             this.AltLoc = altLoc;
@@ -42,21 +43,23 @@ namespace PolymerModel.Data {
             this.AtomInAminoacidSerial = new ReadOnlyDictionary<AtomInAminoacid, int>(atomInAminoacidSerial);
         }
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj)
+        {
             AminoacidInProtein aminoacid = obj as AminoacidInProtein;
             if (aminoacid == null)
                 return false;
-            else return this.Chain.Protein.ID == aminoacid.Chain.Protein.ID && this.ChainId == aminoacid.ChainId && this.ResidueSeq == aminoacid.ResidueSeq;
+            else
+                return this.Chain.Protein.ID == aminoacid.Chain.Protein.ID && this.ChainId == aminoacid.ChainId && this.ResidueSeq == aminoacid.ResidueSeq;
         }
 
-        public override int GetHashCode() {
+        public override int GetHashCode()
+        {
             return this.Chain.Protein.GetHashCode() + ChainId.GetHashCode() + ResidueSeq.GetHashCode();
         }
 
-        public override string ToString() {
+        public override string ToString()
+        {
             return string.Format("{0}-{1}-{2}", Chain.Protein.ID, ChainId, ResidueSeq);
         }
-
     }
-
 }

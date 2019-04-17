@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PolymerModel.Data {
-
+namespace PolymerModel.Data
+{
     /// <summary>元素种类</summary>
-    public enum AtomType {
+    public enum AtomType
+    {
         H = 0, //氢
         C,//碳
         N,//氮
@@ -13,5 +14,4 @@ namespace PolymerModel.Data {
         S,//硫
         P,//磷
     }
-
 }

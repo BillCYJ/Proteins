@@ -6,8 +6,8 @@ using UnityEngine;
 namespace PolymerModel.Data {
 
     /// <summary>多肽链</summary>
-    public class Chain {
-
+    public class Chain
+    {
         /// <summary>所属蛋白质</summary>
         public Protein Protein { get; internal set; }
 
@@ -22,18 +22,19 @@ namespace PolymerModel.Data {
 
         public Chain(string id, IDictionary<int, AminoacidInProtein> seqAminoacids) : this(id, seqAminoacids, null) { }
             
-        public Chain(string id, IDictionary<int, AminoacidInProtein> seqAminoacids, OXTAtom oxtAtom) {
+        public Chain(string id, IDictionary<int, AminoacidInProtein> seqAminoacids, OXTAtom oxtAtom)
+        {
             this.ID = id;
             this.OXT = oxtAtom;
-            if (oxtAtom != null) {
+            if (oxtAtom != null)
+            {
                 oxtAtom.Chain = this;
             }
-            foreach (var child in seqAminoacids) {
+            foreach (var child in seqAminoacids)
+            {
                 child.Value.Chain = this;
             }
             this.SeqAminoacids = new ReadOnlyDictionary<int, AminoacidInProtein>(seqAminoacids);
         }
-
     }
-
 }

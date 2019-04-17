@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using UnityEngine;
 
-namespace PolymerModel.Data {
-
+namespace PolymerModel.Data
+{
     /// <summary>蛋白质</summary>
-    public class Protein {
-
+    public class Protein
+    {
         /// <summary>蛋白质ID号(Header[63-66])</summary>
         public string ID { get; private set; }
 
@@ -26,28 +26,31 @@ namespace PolymerModel.Data {
         //TODO: 非标准残基等其它信息
 
         //读取文件 传入相应参数 构造一个蛋白质对象
-        public Protein(string id, string classification,  string publishDate, IDictionary<string, Chain> chains, Vector3 centerPos) {
+        public Protein(string id, string classification,  string publishDate, IDictionary<string, Chain> chains, Vector3 centerPos)
+        {
             this.ID = id;
             this.Classification = classification;
             this.PublishDate = publishDate;
             this.CenterPos = centerPos;
-            foreach(var aminoacid in chains) {
+            foreach(var aminoacid in chains)
+            {
                 aminoacid.Value.Protein = this;
             }
             Chains = new ReadOnlyDictionary<string, Chain>(chains);
         }
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj)
+        {
             Protein protein = obj as Protein;
             if (protein == null)
                 return false;
-            else return this.ID == protein.ID;
+            else
+                return this.ID == protein.ID;
         }
 
-        public override int GetHashCode() {
+        public override int GetHashCode()
+        {
             return ID.GetHashCode();
         }
-
     }
-
 }

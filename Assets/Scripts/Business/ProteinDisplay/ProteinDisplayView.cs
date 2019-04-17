@@ -191,6 +191,6 @@ public class ProteinDisplayView : View {
 
     [ImplementedInController("OnBallStickToggleChanged")]
     public void OnBallStickToggleChanged(bool value) { }
-
+    
 
 }

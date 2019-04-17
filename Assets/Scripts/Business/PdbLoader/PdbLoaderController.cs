@@ -9,26 +9,30 @@ using UnityEngine.UI;
 using Util;
 using ZCore;
 
-public class PdbLoaderController : Controller {
-
-    public Protein GetProteinData() {
+public class PdbLoaderController : Controller
+{
+    public Protein GetProteinData()
+    {
         return GetModel<PdbLoaderModel>().ProteinData;
     }
 
     /// <summary>从本地加载PDB文件</summary>
-    public async void LoadLocalPdbFileAsync(Action completeCallback) {
+    public async void LoadLocalPdbFileAsync(Action completeCallback)
+    {
         byte[] data = await IOUtil.PickFile();
         ParsePdbData(data);
         completeCallback?.Invoke();
     }
 
     /// <summary>从网络加载PDB文件 </summary>
-    public void LoadNetworkPdbFile(string IDCode, Action completeCallback) {
+    public void LoadNetworkPdbFile(string IDCode, Action completeCallback)
+    {
         PdbLoaderService service = GetService<PdbLoaderService>();
         StartCoroutine(service.DownloadPdbFile(
             IDCode, 
             (response) => {
-                if (response.ErrorCode == 0) {
+                if (response.ErrorCode == 0)
+                {
                     ParsePdbData(response.ResponseData);
                     completeCallback?.Invoke();
                 }
@@ -40,7 +44,8 @@ public class PdbLoaderController : Controller {
     }
 
     /// <summary>从本地加载默认的PDB文件 </summary>
-    public void LoadDefaultPdbFileCommand(string IDCode, Action completeCallback) {
+    public void LoadDefaultPdbFileCommand(string IDCode, Action completeCallback)
+    {
         PdbLoaderService service = GetService<PdbLoaderService>();
         StartCoroutine(service.LoadDefaultPdbFile(
             IDCode,
@@ -50,14 +55,17 @@ public class PdbLoaderController : Controller {
             }));
     }
 
-    private void ParsePdbData(byte[] data) {
+    private void ParsePdbData(byte[] data)
+    {
         string str = Encoding.UTF8.GetString(data);
         ParsePdbData(str);
     }
 
     /// <summary>解析Pdb文件数据</summary>
-    private void ParsePdbData(string str) {
-        using (StringReader sr = new StringReader(str)) {
+    private void ParsePdbData(string str)
+    {
+        using (StringReader sr = new StringReader(str))
+        {
             string record = null;//当前读取的记录
 
             //蛋白质作用域***********/
@@ -87,20 +95,24 @@ public class PdbLoaderController : Controller {
             AminoacidInProtein currentAminoacidInProtein = null;
             bool completeLastAminoacid = true;//已完成上一个残基的读取
 
-            while ((record = sr.ReadLine()) != null) {
+            while ((record = sr.ReadLine()) != null)
+            {
                 //原子作用域
                 string title = record.Substring(0, 6);
-                if (title.StartsWith("HEADER")) {
+                if (title.StartsWith("HEADER"))
+                {
                     classification = record.Substring(10, 40).Trim();//11-50
                     publishDate = record.Substring(50, 9);//51-59
                     id = record.Substring(62, 4);//63-66
                 }
-                else if (title.StartsWith("ATOM")) {
+                else if (title.StartsWith("ATOM"))
+                {
 
                     //氨基酸残基相关部分
                     int lastResidueSeq = residueSeq;
                     residueSeq = int.Parse(record.Substring(22, 4).Trim()); //23-26 残基序列号作为判断标志
-                    if (lastResidueSeq != residueSeq && !completeLastAminoacid) {
+                    if (lastResidueSeq != residueSeq && !completeLastAminoacid)
+                    {
                         //若当前record为新的氨基酸残基的第一条记录(或记录为TER)
                         currentAminoacidInProtein = new AminoacidInProtein(altloc, resName, chainId, lastResidueSeq, atomInAminoacidPos, atomInAminoacidSerial);
                         seqAminoacids.Add(lastResidueSeq, currentAminoacidInProtein);
@@ -108,9 +120,11 @@ public class PdbLoaderController : Controller {
                         atomInAminoacidSerial = new Dictionary<AtomInAminoacid, int>();
                         completeLastAminoacid = true;
                     }
-                    else {
+                    else
+                    {
                         completeLastAminoacid = false;
-                        if (record[16] != altloc) {
+                        if (record[16] != altloc)
+                        {
                             continue; //若当前可替换标识符不是默认则跳过当前记录行
                         }
                     }
@@ -130,15 +144,18 @@ public class PdbLoaderController : Controller {
                     if (maxPos == Vector3.zero) { maxPos = pos; }
                     if (x > maxPos.x) maxPos.x = x; if (y > maxPos.y) maxPos.y = y; if (z > maxPos.z) maxPos.z = z;
                     if (x < minPos.x) minPos.x = x; if (y < minPos.y) minPos.y = y; if (z < minPos.z) minPos.z = z;
-                    if (atomName == "OXT") {
+                    if (atomName == "OXT")
+                    {
                         oxt = new OXTAtom(atomSerial, pos);
                     }
-                    else {
+                    else
+                    {
                         atomInAminoacidPos.Add(Aminoacid.Generate(resName)[atomName], pos);
                         atomInAminoacidSerial.Add(Aminoacid.Generate(resName)[atomName], atomSerial);
                     }
                 }
-                else if (title.StartsWith("TER")) { //链结束
+                else if (title.StartsWith("TER"))
+                { //链结束
                     //氨基酸残基结算
                     residueSeq = int.Parse(record.Substring(22, 4).Trim()); //23-26 残基序列号作为判断标志
                     currentAminoacidInProtein = new AminoacidInProtein(altloc, resName, chainId, residueSeq, atomInAminoacidPos, atomInAminoacidSerial);
@@ -153,10 +170,12 @@ public class PdbLoaderController : Controller {
                     seqAminoacids = new Dictionary<int, AminoacidInProtein>();
                     chains.Add(chain.ID, chain);
                 }
-                else if (title.StartsWith("HETATM")) { //非标准残基
+                else if (title.StartsWith("HETATM"))
+                { //非标准残基
 
                 }
-                else if (title.StartsWith("CONECT")) { //非标准残基间的原子连接关系
+                else if (title.StartsWith("CONECT"))
+                { //非标准残基间的原子连接关系
 
                 }
             }
@@ -166,5 +185,4 @@ public class PdbLoaderController : Controller {
             Debug.Log("读取pdb完成");
         }
     }
-
 }

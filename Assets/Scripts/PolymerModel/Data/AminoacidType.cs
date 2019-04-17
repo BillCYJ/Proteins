@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PolymerModel.Data {
-
-    public enum AminoacidType {
+namespace PolymerModel.Data
+{
+    public enum AminoacidType
+    {
         ALA = 0,//丙氨酸 A
         ARG,//精氨酸 R
         ASN,//天冬酰胺 N
@@ -26,5 +27,4 @@ namespace PolymerModel.Data {
         TYR,//酪氨酸 Y
         VAL,//缬氨酸V
     }
-
 }

@@ -5,11 +5,10 @@ using System.Data;
 using UnityEngine;
 using ZCore;
 
-public class PdbLoaderModel : Model {
-
-    public Protein ProteinData {
+public class PdbLoaderModel : Model
+{
+    public Protein ProteinData
+    {
         get; set;
     }
-
-
 }

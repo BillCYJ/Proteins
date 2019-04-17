@@ -7,6 +7,7 @@ using UnityEngine.Events;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using ContextMenu = UnityEngine.ContextMenu;
+using System.Threading.Tasks;
 
 public class A {
     public void TestMethod() {
@@ -30,7 +31,10 @@ public class Test : MonoBehaviour {
     public GameObject _GameObject;
 
     [ContextMenu("TestMethod")]
-    public async void TestMethod() {
+    public async void TestMethod()
+    {
+        Debug.Log("Start");
+        await Task.Delay(TimeSpan.FromSeconds(2));
         Type type = typeof(void);
         Debug.Log(type.FullName);
     }
