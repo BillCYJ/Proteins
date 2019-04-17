@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.proteins.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "C:\\Users\\vrlab02\\Desktop\\jumpchen\\Proteins\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "Proteins [Testing]"
+        }
+      }
+    }
+  ]
+}

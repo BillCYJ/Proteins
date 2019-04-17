@@ -1,0 +1,8 @@
+{
+    "name": "PolymerModel",
+    "references": [
+        "Util"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}
