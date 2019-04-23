@@ -4,32 +4,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using ZCore;
 
-public class ProteinDisplayController : Controller {
-
+public class ProteinDisplayController : Controller
+{
     /// <summary>显示蛋白质</summary>
-    public void ShowProtein() {
+    public void ShowProtein()
+    {
         ProteinDisplayModel model = GetModel<ProteinDisplayModel>();
         Protein protein = CoreAPI.PostCommand<PdbLoaderModule, GetProteinDataCommand, Protein>(new GetProteinDataCommand());
-        if (model.DisplayedProteinData != null) {
-            if (model.DisplayedProteinData.ID == protein.ID) {
+        if (model.DisplayedProteinData != null)
+        {
+            if (model.DisplayedProteinData.ID == protein.ID)
+            {
                 return;
             }
-            else DestroyProtein();
+            else
+                DestroyProtein();
         }
         model.DisplayedProteinData = protein;
         ProteinDisplayView view = GetView<ProteinDisplayView>();
         view.ShowProtein(protein);
     }
 
-    public void ShowDisplayView() {
+    public void ShowDisplayView()
+    {
         ProteinDisplayView view = GetView<ProteinDisplayView>();
     }
 
-    public void OnSliderChanged(float value) {
+    public void OnSliderChanged(float value)
+    {
         Debug.Log(value);
     }
 
-    public void OnBallStickToggleChanged(bool value) {
+    public void OnBallStickToggleChanged(bool value)
+    {
         ProteinDisplayModel model = GetModel<ProteinDisplayModel>();
         ProteinDisplayView view = GetView<ProteinDisplayView>();
         Protein protein = model.DisplayedProteinData;
@@ -38,17 +45,16 @@ public class ProteinDisplayController : Controller {
         view.ShowProtein(protein);
     }
 
-    public void ShowInfoInBoard(AtomDisplayer atomDisplayer) {
+    public void ShowInfoInBoard(AtomDisplayer atomDisplayer)
+    {
         ProteinDisplayView view = GetView<ProteinDisplayView>();
         view.SetBoardInfo(atomDisplayer);
     }
 
     /// <summary>销毁蛋白质分子模型</summary>
-    private void DestroyProtein() {
+    private void DestroyProtein()
+    {
         ProteinDisplayView view = GetView<ProteinDisplayView>();
         view.DestroyProtein();
     }
-
-
-
 }

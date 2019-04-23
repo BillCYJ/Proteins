@@ -9,12 +9,12 @@ public class ShowProteinCommand : ProteinDisplayCommand { }
 
 public class ShowDisplayViewCommand : ProteinDisplayCommand { }
 
-public class ShowInfoInBoardCommand : ProteinDisplayCommand {
-
+public class ShowInfoInBoardCommand : ProteinDisplayCommand
+{
     public AtomDisplayer AtomDisplayer { get; private set; }
 
-    public ShowInfoInBoardCommand(AtomDisplayer atomDisplayer) {
+    public ShowInfoInBoardCommand(AtomDisplayer atomDisplayer)
+    {
         this.AtomDisplayer = atomDisplayer;
     }
-
 }

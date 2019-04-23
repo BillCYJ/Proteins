@@ -5,12 +5,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using ZCore;
 
+// Command主要是用于模块间的通信
+
 public class PdbLoaderCommand : Command { }
 
-public class LoadLocalPdbFileCommand : PdbLoaderCommand {
+public class LoadLocalPdbFileCommand : PdbLoaderCommand
+{
     public Action CompleteCallback { get; private set; }
 
-    public LoadLocalPdbFileCommand(Action completeCallback) {
+    public LoadLocalPdbFileCommand(Action completeCallback)
+    {
         this.CompleteCallback = completeCallback;
     }
 }
@@ -39,5 +43,3 @@ public class LoadDefaultPdbFileCommand : PdbLoaderCommand {
         this.CompleteCallback = completeCallback;
     }
 }
-
-

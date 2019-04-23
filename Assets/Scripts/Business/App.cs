@@ -51,7 +51,7 @@ public class App : MonoBehaviour
             CoreAPI.SendCommand<ProteinDisplayModule, ShowProteinCommand>(new ShowProteinCommand());
         }));
     }
-
+    
     [ImplementedInController]
     public async void OnButtonClick()
     {

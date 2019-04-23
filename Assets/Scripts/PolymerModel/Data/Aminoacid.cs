@@ -30,7 +30,7 @@ namespace PolymerModel.Data
         public string Chinese { get; private set; }
 
         /// <summary>该氨基酸包含的原子</summary>
-        public ReadOnlyCollection<AtomInAminoacid> Atoms { get; private set; }
+        //public ReadOnlyCollection<AtomInAminoacid> Atoms { get; private set; }
 
         /// <summary>使用字典进行O(1)时间复杂度的查询，根据原子的名字string（含后缀的）来得到对应的原子实例</summary>
         private Dictionary<string, AtomInAminoacid> atomDic;
@@ -72,7 +72,7 @@ namespace PolymerModel.Data
                 };
                 atoms.Add(atomInAminoacid);
             }
-            Atoms = new ReadOnlyCollection<AtomInAminoacid>(atoms);
+            //Atoms = new ReadOnlyCollection<AtomInAminoacid>(atoms);
 
             atomDic = new Dictionary<string, AtomInAminoacid>();
             foreach (var child in atoms)

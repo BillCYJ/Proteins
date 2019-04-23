@@ -28,7 +28,7 @@ namespace PolymerModel
     public static class PolymerModelAPI
     {
         private static bool loaded;
-
+        
         private static DataTable AminoacidDt;
         private static DataTable ConnectionDt;
 
