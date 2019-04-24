@@ -44,6 +44,8 @@ public class ProteinDisplayView : View {
     [SerializeField]
     private Text atomInfoText;
 
+    public Toggle toggle;
+
     protected override void OnCreated()
     {
         base.OnCreated();
@@ -205,9 +207,6 @@ public class ProteinDisplayView : View {
         return bondGo;
     }
 
-    [ImplementedInController("OnSliderChanged")]
-    public void OnSliderChanged(float value) { }
-
-    [ImplementedInController("OnBallStickToggleChanged")]
-    public void OnBallStickToggleChanged(bool value) { }
+    //[ImplementedInController("OnBallStickToggleChanged")]
+    //public void OnBallStickToggleChanged(bool value) { }
 }

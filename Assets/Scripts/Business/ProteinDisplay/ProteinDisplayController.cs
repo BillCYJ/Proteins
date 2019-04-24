@@ -28,11 +28,7 @@ public class ProteinDisplayController : Controller
     public void ShowDisplayView()
     {
         ProteinDisplayView view = GetView<ProteinDisplayView>();
-    }
-
-    public void OnSliderChanged(float value)
-    {
-        Debug.Log(value);
+        view.toggle.onValueChanged.AddListener(OnBallStickToggleChanged);
     }
 
     public void OnBallStickToggleChanged(bool value)

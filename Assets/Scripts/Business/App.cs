@@ -47,15 +47,17 @@ public class App : MonoBehaviour
     {
         await PolymerModelAPI.LoadDataAsync();
         Debug.Log("加载数据完成");
-        CoreAPI.SendCommand<PdbLoaderModule, LoadDefaultPdbFileCommand>(new LoadDefaultPdbFileCommand("5zql", () => {
+        CoreAPI.SendCommand<PdbLoaderModule, LoadDefaultPdbFileCommand>(new LoadDefaultPdbFileCommand("6dce", () => {
+            CoreAPI.SendCommand<ProteinDisplayModule, ShowDisplayViewCommand>(new ShowDisplayViewCommand());
             CoreAPI.SendCommand<ProteinDisplayModule, ShowProteinCommand>(new ShowProteinCommand());
         }));
     }
-    
-    [ImplementedInController]
+
     public async void OnButtonClick()
     {
-        CoreAPI.SendCommand<PdbLoaderModule, LoadLocalPdbFileCommand>(new LoadLocalPdbFileCommand(() => {
+        // 调用PdbLoaderModule里的OnLoadLocalPdbFileCommand方法，反射实现的
+        CoreAPI.SendCommand<PdbLoaderModule, LoadLocalPdbFileCommand>(new LoadLocalPdbFileCommand(() =>
+        {
             CoreAPI.SendCommand<ProteinDisplayModule, ShowProteinCommand>(new ShowProteinCommand());
         }));
     }

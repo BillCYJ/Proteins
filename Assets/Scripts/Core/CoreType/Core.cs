@@ -70,7 +70,7 @@ namespace ZCore {
             viewRoot = new GameObject("ViewRoot");
         }
 
-        // 指定强类型 直接进行委托调用 调用速度更快(推荐)
+        // 指定强类型 直接进行委托调用 调用速度更快(推荐)（因为编译的时候就指定了实参类型）
         /// <summary>
         /// 概念：泛型约束
         /// where TModule : Module, new() 约束TModel必须继承自Model并且必须带有默认构造函数（因为GetModule里调用了默认构造函数）
@@ -102,6 +102,7 @@ namespace ZCore {
                 sendCommandDelegateDic.Add(commandType, action);
             }
             (action as Action<TCommand>)(cmd); //强转，转为具体的委托类型调用更快，并传入实参
+            // Delegate是不明确的委托类型，Action<T>是明确的委托类型
         }
 
         //未指定强类型 使用MethodInfo.Invoke调用方法或使用后期绑定的方式调用委托
