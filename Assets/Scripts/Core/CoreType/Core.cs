@@ -27,7 +27,13 @@ namespace ZCore {
         Exception,
     }
 
-    /// <summary>框架核心，仅框架层代码可访问</summary>
+    /// <summary>
+    /// 框架核心，仅框架层代码可访问
+    /// 
+    /// internal和“e.g.在Core文件夹上右键点击Create并选择Assembly Definition就会生成Core.asmdef程序集文件，C#就会把Core文件夹当作一个项目”
+    /// 上述两个必须搭配使用才有意义，目的是：限制下方的Core类只可在Core程序集内被访问，而不能被该程序集外部所访问，同时，在CoreAPI脚本里提供了
+    /// 一些对外的接口供外部调用。
+    /// </summary>
     internal static class Core
     {
         /// <summary>保持模块实例的引用</summary>
