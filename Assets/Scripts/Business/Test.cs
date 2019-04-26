@@ -10,10 +10,11 @@ using ContextMenu = UnityEngine.ContextMenu;
 using System.Threading.Tasks;
 
 public class A {
-    public void TestMethod() {
-        int a = 0;
-        int b = 1;
-        int c = a + b;
+    public void TestMethod()
+    {
+        //int a = 0;
+        //int b = 1;
+        //int c = a + b;
     }
 
 }

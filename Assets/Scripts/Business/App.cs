@@ -53,7 +53,7 @@ public class App : MonoBehaviour
         }));
     }
 
-    public async void OnButtonClick()
+    public void OnButtonClick()
     {
         // 调用PdbLoaderModule里的OnLoadLocalPdbFileCommand方法，反射实现的
         CoreAPI.SendCommand<PdbLoaderModule, LoadLocalPdbFileCommand>(new LoadLocalPdbFileCommand(() =>

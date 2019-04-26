@@ -134,7 +134,7 @@ public class ProteinDisplayView : View {
                             pos1 = (aminoacidInProtein.AtomInAminoacidPos[connection.Key.Key] - protein.CenterPos) * BallStickPosScale;
                             pos2 = (aminoacidInProtein.AtomInAminoacidPos[connection.Key.Value] - protein.CenterPos) * BallStickPosScale;
                         }
-                        catch(KeyNotFoundException ex)
+                        catch(KeyNotFoundException)
                         {
                             //Debug.LogWarning(string.Format("The aminoacidInProtein: {0} is not complete, the atom in connection: {1}-{2} is losed", aminoacidInProtein, connection.Key.Key.Name, connection.Key.Value.Name));
                             continue;
@@ -202,7 +202,7 @@ public class ProteinDisplayView : View {
         }
         bondGo.transform.localPosition = (pos1 + pos2) / 2;
         bondGo.transform.localScale = new Vector3(0.01f, 0.01f, bondLength / 2);
-        Vector3 targetPos = Vector3.Cross(bondDirection, Vector3.up) + (pos1 + pos2) / 2;
+        //Vector3 targetPos = Vector3.Cross(bondDirection, Vector3.up) + (pos1 + pos2) / 2;
         bondGo.transform.LookAt(pos1);
         return bondGo;
     }
