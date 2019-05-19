@@ -74,7 +74,7 @@ public class PdbLoaderController : Controller
             Dictionary<string, Chain> chains = new Dictionary<string, Chain>();
             Vector3 minPos = Vector3.zero;
             Vector3 maxPos = Vector3.zero;
-            Vector3 centerPos = Vector3.zero;
+            Vector3 centerPos = Vector3.zero; // 蛋白质的中心位置
             //*************************/
 
             //肽链作用域*************/
@@ -83,7 +83,7 @@ public class PdbLoaderController : Controller
             //*************************/
 
             //氨基酸作用域***********/
-            char altloc = ' ';
+            char altloc = ' '; // 可替位置标示符
             string resName = null;
             string chainId = null;
             int residueSeq = 0;
@@ -122,7 +122,9 @@ public class PdbLoaderController : Controller
                     else
                     {
                         completeLastAminoacid = false;
-                        if (record[16] != altloc)
+                        //record[16]是第17列，是用来标记同分异构体的，同分异构体的数据所在的行 在PDB文件里是挨在一起的，只需要显示同一种氨基酸的
+                        //同分异构体里的一种异构体氨基酸就可以了，所以只需要PDB文件里的一种异构体氨基酸数据行。
+                        if (record[16] != altloc) 
                         {
                             continue; //若当前可替换标识符不是默认则跳过当前记录行
                         }
