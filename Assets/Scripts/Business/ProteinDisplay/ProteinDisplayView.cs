@@ -14,6 +14,7 @@ public class ProteinDisplayView : View {
     //内置球模型的原本直径为1单位
     private const float AtomFillSize = 0.25f; // 球模型中原子的实际直径大小(0.25m)
     private const float AtomBallStickSize = 0.06f; //球棍模型中原子的实际直径大小(0.06m)
+    private const float AtomStickSize = 0f; //棍模型中原子的实际直径大小(0m)
 
     //内置圆柱模型的原本高度为2单位 直径为1单位
     private const float BondPrefebLength = 0.1f; //默认棍的预制体长度为0.1m
@@ -23,8 +24,7 @@ public class ProteinDisplayView : View {
     [SerializeField]
     private GameObject Canvas2D;
 
-    [SerializeField]
-    private GameObject Displayer3DRoot;
+    public GameObject Displayer3DRoot;
 
     [SerializeField]
     private GameObject SingleBondPrefeb;
@@ -44,7 +44,15 @@ public class ProteinDisplayView : View {
     [SerializeField]
     private Text atomInfoText;
 
-    public Toggle toggle;
+    // 复选框
+    public Toggle toggle_ball_stick;
+    public Toggle toggle_ball;
+    public Toggle toggle_stick;
+
+    //scale放大缩小
+    public Slider scaleSlider;
+    //重置scale
+    public Button resetScaleBtn;
 
     protected override void OnCreated()
     {
@@ -73,7 +81,12 @@ public class ProteinDisplayView : View {
     {
         GameObject proteinDisplayerGo = new GameObject(protein.ID, typeof(ProteinDisplayer));
         proteinDisplayerGo.GetComponent<ProteinDisplayer>().Protein = protein;
+
+        Displayer3DRoot.transform.localPosition = Vector3.zero;
+        Displayer3DRoot.transform.localRotation = Quaternion.identity;
+        Displayer3DRoot.transform.localScale = new Vector3(1, 1, 1);
         proteinDisplayerGo.transform.SetParent(Displayer3DRoot.transform);
+
         foreach (var chainKvp in protein.Chains)
         {
             Chain chain = chainKvp.Value;
@@ -95,6 +108,7 @@ public class ProteinDisplayView : View {
                     {
                         case DisplayMode.Spacefill: atomDisplayerGoPrefeb.transform.localScale = new Vector3(AtomFillSize, AtomFillSize, AtomFillSize); break;
                         case DisplayMode.BallStick: atomDisplayerGoPrefeb.transform.localScale = new Vector3(AtomBallStickSize, AtomBallStickSize, AtomBallStickSize); break;
+                        case DisplayMode.Stick: atomDisplayerGoPrefeb.transform.localScale = new Vector3(AtomStickSize, AtomStickSize, AtomStickSize); break;
                         default: throw new System.Exception(string.Format("Unhandled displayMode: {0}", displayMode));
                     }
                     GameObject atomDisplayerGo = Instantiate(atomDisplayerGoPrefeb, aminoacidDisplayerGo.transform, false);
@@ -105,7 +119,7 @@ public class ProteinDisplayView : View {
                     atomDisplayer.AminoacidInProtein = aminoacidInProtein;
                 }
                 //创建每个键的模型
-                if (displayMode == DisplayMode.BallStick)
+                if (displayMode == DisplayMode.BallStick || displayMode == DisplayMode.Stick) 
                 {
                     AminoacidInProtein lastAminoacidInProtein = null;
                     //若在该链存在上一序列号的残基 则构造一个该残基的N连通上一残基的C形成的肽键

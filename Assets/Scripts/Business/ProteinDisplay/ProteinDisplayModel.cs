@@ -7,6 +7,7 @@ using ZCore;
 public enum DisplayMode {
     Spacefill = 0, //球模型
     BallStick, //球棍模型
+    Stick, //棍模型
 }
 
 /// <summary>选取模式</summary>
