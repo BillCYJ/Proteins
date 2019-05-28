@@ -17,7 +17,7 @@ namespace PolymerModel.Data {
         /// <summary>该链中的OXT原子(若没有则为null)</summary>
         public OXTAtom OXT { get; private set; }
 
-        /// <summary>链内氨基酸标准残基序列</summary>
+        /// <summary>链内包含的氨基酸残基集合（有序的）</summary>
         public ReadOnlyDictionary<int, AminoacidInProtein> SeqAminoacids { get; private set; }
 
         public Chain(string id, IDictionary<int, AminoacidInProtein> seqAminoacids) : this(id, seqAminoacids, null) { }

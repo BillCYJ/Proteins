@@ -49,7 +49,7 @@ namespace PolymerModel
             string connectionData = await IOUtil.ReadInStreamingAssetsAsync(string.Empty, "Connection.csv");
             ConnectionDt = CSVHelper.ReadCSVStr(connectionData);
 
-            //将数据表转化为字典提高查询效率
+            //将Connection数据表转化为字典，有助于后续的数据查找
             Dictionary<string, List<DataRow>> connectionDic = new Dictionary<string, List<DataRow>>();
             foreach (DataRow connectionDataRow in ConnectionDt.Rows)
             {
@@ -61,7 +61,7 @@ namespace PolymerModel
                 connectionDic[type].Add(connectionDataRow);
             }
 
-            //遍历氨基酸数据表构建氨基酸数据结构
+            //遍历氨基酸数据表 + connectionDic 一起构建氨基酸数据结构
             foreach (DataRow aminoacidDataRow in AminoacidDt.Rows)
             {
                 string type = aminoacidDataRow["Type"].ToString();

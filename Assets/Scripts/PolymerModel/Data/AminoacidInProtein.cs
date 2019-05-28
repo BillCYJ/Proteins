@@ -16,13 +16,13 @@ namespace PolymerModel.Data {
         /// <summary>该残基在该链中的顺序号(ATOM[23-26])</summary>
         public int ResidueSeq { get; private set; }
         
-        /// <summary>可替换标识符(ATOM[17])</summary>
+        /// <summary>可替换标识符(ATOM[17])，该氨基酸是否有同分异构体的标志位</summary>
         public char AltLoc { get; private set; }
 
         /// <summary>残基名字(简写大写字母，ATOM[18-20])</summary>
         public string ResName { get; private set; }
 
-        /// <summary>残基所属氨基酸</summary>
+        /// <summary>氨基酸类型</summary>
         public Aminoacid Aminoacid { get; private set; }
 
         /// <summary>氨基酸内部各原子的相对于蛋白质的位置信息</summary>

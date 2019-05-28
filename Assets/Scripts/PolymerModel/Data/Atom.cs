@@ -61,9 +61,9 @@ namespace PolymerModel.Data
         }
 
         /// <summary>
-        /// 重写了Dictionary的Equals和GetHashCode函数
-        /// Atom重写这两个函数就相当于声明了：任何type相同的Atom对象都视为同一个对象，这些Atom对象都可以作为key来索引同一个value
-        /// 如果不这样做，由于每个对象都有自己的地址，key又是取的对象的引用，就会导致key的不同以至于无法索引到value
+        /// 重写了Atom类的基类Object的Equals和GetHashCode函数
+        /// Atom重写这两个函数就相当于声明了：任何type相同的Atom对象都视为同一个对象，这些type相同的Atom对象都可以作为key来索引到同一个value
+        /// 如果不这样做，由于每个对象都有自己的地址，key又是取的对象的引用，就会导致key的不同以至于这些同类型的对象无法索引到同一个的value
 		///
 		/// 在Object类中可以看见Equals的原本实现，原本是比较两个obj的引用，也就是指向的地址是否一致，但是这里的需求是，只要两个obj的type相同，
 		/// 就判断为同一个obj了，所以需要重写Equals函数。

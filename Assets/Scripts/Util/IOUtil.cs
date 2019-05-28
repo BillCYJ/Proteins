@@ -215,11 +215,13 @@ namespace Util {
 #region StreamingAssets
 
         /// <summary>从StreamingAssets路径下读取文件的文本 </summary>
-        public async static Task<string> ReadInStreamingAssetsAsync(string folderPathInStreamingAssets, string fileName) {
+        public async static Task<string> ReadInStreamingAssetsAsync(string folderPathInStreamingAssets, string fileName)
+        {
             return await ReadAsync(Application.streamingAssetsPath + folderPathInStreamingAssets, fileName);
         }
 
-        public async static Task<byte[]> ReadBytesInStreamingAssetsAsync(string folderPathInStreamingAssets, string fileName) {
+        public async static Task<byte[]> ReadBytesInStreamingAssetsAsync(string folderPathInStreamingAssets, string fileName)
+        {
             return await ReadBytesAsync(Application.streamingAssetsPath + folderPathInStreamingAssets, fileName);
         }
 

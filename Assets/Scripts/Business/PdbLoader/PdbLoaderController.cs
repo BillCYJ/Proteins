@@ -60,6 +60,7 @@ public class PdbLoaderController : Controller
         string str = Encoding.UTF8.GetString(data);
         ParsePdbData(str);
     }
+
     /// <summary>解析Pdb文件数据</summary>
     private void ParsePdbData(string str)
     {
@@ -109,7 +110,7 @@ public class PdbLoaderController : Controller
 
                     //氨基酸残基相关部分
                     int lastResidueSeq = residueSeq;
-                    residueSeq = int.Parse(record.Substring(22, 4).Trim()); //23-26 残基序列号作为判断标志
+                    residueSeq = int.Parse(record.Substring(22, 4).Trim()); //23-26列：残基序列号作为判断标志
                     if (lastResidueSeq != residueSeq && !completeLastAminoacid)
                     {
                         //若当前record为新的氨基酸残基的第一条记录(或记录为TER)
@@ -156,9 +157,9 @@ public class PdbLoaderController : Controller
                     }
                 }
                 else if (title.StartsWith("TER"))
-                { //链结束
+                { //链结束，TER是判断链是否结束的标志位
                     //氨基酸残基结算
-                    residueSeq = int.Parse(record.Substring(22, 4).Trim()); //23-26 残基序列号作为判断标志
+                    residueSeq = int.Parse(record.Substring(22, 4).Trim()); //23-26列：残基序列号用来记录当前氨基酸残基的序列号
                     currentAminoacidInProtein = new AminoacidInProtein(altloc, resName, chainId, residueSeq, atomInAminoacidPos, atomInAminoacidSerial);
                     seqAminoacids.Add(residueSeq, currentAminoacidInProtein);
                     atomInAminoacidPos = new Dictionary<AtomInAminoacid, Vector3>();
